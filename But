@@ -1,0 +1,145 @@
+import os
+
+from TeriPHP import bots
+
+os.system("clear")
+
+from random import choice
+
+import pyfiglet
+
+from start import program
+
+red = '\033[31m' 
+
+green = '\033[32m' 
+
+blue = '\033[36m' 
+
+pink = '\033[35m' 
+
+yellow = '\033[93m' 
+
+darkblue = '\033[34m' 
+
+white = '\033[00m'
+
+text = "  YASIN BOT"
+
+bot = Robot_Rubika("bmxiznvcthnnvnuvvqxouwglqvmnhtdd")
+
+program()
+
+while (1):
+
+	link_or_username=input(f"                   {green}Your Link or UserName : "+yellow)	if link_or_username.startswith("https://rubika.ir/joing/"):
+
+		try:
+
+			group_infos=bot.joinGroup(link_or_username)
+
+			info=group_infos["data"]['group']
+
+			print(red+f"                   Group Name : {blue}{info['group_title']}")
+
+			print(red+f"                   Group Guid : {blue}{info['group_guid']}")
+
+			print(red+f"                   Group Timer : {blue}{info['slow_mode']}")
+
+			print(red+f"                   Group Count Members : {blue}{info['count_members']} Member")
+
+			if "SendMessages" in group_infos["data"]['chat_update']["chat"]['access']:
+
+				print(red+f"                   Group Mode : {blue}Open")
+
+			else:
+
+				print(red+f"                   Group Mode : {blue}Closed")
+
+		except: pass
+
+	elif link_or_username.startswith("https://rubika.ir/joinc/"):
+
+		try:
+
+			channel_infos=bot.joinChannel(link_or_username)
+
+			input_ch=channel_infos['data']['channel']
+
+			print(red+f"                   Channel Name : {blue}{input_ch['channel_title']}")
+
+			print(red+f"                   Channel Guid : {blue}{input_ch['channel_guid']}")
+
+			print(red+f"                   Channel Count Members : {blue}{input_ch['count_members']} member")
+
+		except: pass
+
+	elif link_or_username.startswith("@"):
+
+		try:
+
+			id_infos=bot.getInfoByUsername(link_or_username[1:])
+
+			if id_infos['data']['type']=='User':
+
+				try:
+
+					input_id=id_infos['data']['user']
+
+					print(red+f"                   User Name : {blue}{input_id['first_name']}")
+
+					print(red+f"                   User Guid : {blue}{input_id['user_guid']}")
+
+					print(red+f"                   User Id : {blue}{input_id['username']}")
+
+					print(red+f"                   User Message Count Unseen : {blue}{id_infos['data']['chat']['count_unseen']} Message")
+
+					if id_infos['data']['chat']['is_blocked'] == False:
+
+						print(red+f"                   User  Is Blocked : {blue}Unblock")
+
+					else:
+
+						print(red+f"                   User  Is Blocked : {blue}Block")
+
+				except: pass
+
+			elif id_infos['data']['type']=='Channel':
+
+				try:
+
+					input_id=id_infos['data']['channel']
+
+					print(red+f"                   Channel Name : {blue}{input_id['channel_title']}")
+
+					print(red+f"                   Channel Guid : {blue}{input_id['channel_guid']}")
+
+					print(red+f"                   Channel Id : {blue}{input_id['username']}")
+
+					print(red+f"                   Channel Count Members : {blue}{input_id['count_members']}")
+
+				except: pass
+
+		except: pass
+
+	elif link_or_username.startswith("https://rubika.ir/"):			
+
+		try:
+
+			id_infos=bot.getInfoByUsername(link_or_username[18:])
+
+			try:
+
+				input_id=id_infos['data']['channel']
+
+				print(red+f"                   Channel Name : {blue}{input_id['channel_title']}")
+
+				print(red+f"                   Channel Guid : {blue}{input_id['channel_guid']}")
+
+				print(red+f"                   Channel Id : {blue}{input_id['username']}")
+
+				print(red+f"                   Channel Count Members : {blue}{input_id['count_members']}")
+
+			except:pass
+
+		except:pass
